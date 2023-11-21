@@ -84,10 +84,10 @@
 
 </body>
 
-<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+    import { getDatabase, ref, get, child, update } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
 
-<script>
     const firebaseConfig = {
     apiKey: "AIzaSyB8UGwSyEqv9LhAbOhBkqgQdUsYSmn886Y",
     authDomain: "pulserythm-1e02c.firebaseapp.com",
@@ -102,7 +102,8 @@
   const app = initializeApp(firebaseConfig);
 
     // Reference to the Firebase Realtime Database
-    var database = firebase.database();
+    var database = getDatabase();
+    //   get(child(ref(database), "PatientRecord")).then(s => console.log(s.val()))
   
     document.getElementById('userForm').addEventListener('submit', function(event) {
       event.preventDefault(); // Prevent the default form submission behavior
@@ -111,13 +112,14 @@
       var name = document.getElementById('name').value;
       var age = document.getElementById('age').value;
       var adminNumber = document.getElementById('admno').value;
-  
+      const dataRef = ref(database, `PatientRecord/${adminNumber}`);
+      update(dataRef, { Age: age, Name: name }).then(() => {alert("Updated!!")}).catch("Failed to update!")
       // Store data in Firebase
-      database.ref('PatientRecord').push({
+      /* database.ref('PatientRecord').push({
         name: name,
         age: age,
         adminNumber: admno
-      });
+      }); */
   
       // Optionally, you can clear the form after submission
       document.getElementById('userForm').reset();
