@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Form</title>
+    <style>
+        body {
+            background-image: url('pulsesync/assets/background.jpg');
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #001F3F; /* Dark Blue */
+            margin-top: 20px; /* Add some top margin for spacing */
+        }
+
+
+        form {
+            background: rgba(255, 255, 255, 0.8); /* Transparent White */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            max-width: 400px; /* Adjust as needed */
+            width: 100%;
+            /* Additional styles */
+            backdrop-filter: blur(5px); /* Adds a blur effect */
+            margin-top: 20px; /* Add margin to separate from h1 */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333; /* Dark Gray text */
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #001F3F; /* Dark Blue */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #003366; /* Darker Blue on Hover */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Patient Records</h1>
+
+    <form action="#" method="post" id="userForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="1" required><br>
+
+        <label for="admno">Admin number:</label>
+        <input type="number" id="admno" name="admno" min="1" required><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js"></script>
+
+<script>
+    const firebaseConfig = {
+    apiKey: "AIzaSyB8UGwSyEqv9LhAbOhBkqgQdUsYSmn886Y",
+    authDomain: "pulserythm-1e02c.firebaseapp.com",
+    databaseURL: "https://pulserythm-1e02c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "pulserythm-1e02c",
+    storageBucket: "pulserythm-1e02c.appspot.com",
+    messagingSenderId: "521557011940",
+    appId: "1:521557011940:web:aa65cfddb8a02a9136abf1",
+    measurementId: "G-DQZR4JSS96"
+  };
+
+  const app = initializeApp(firebaseConfig);
+
+    // Reference to the Firebase Realtime Database
+    var database = firebase.database();
+  
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+  
+      // Get form values
+      var name = document.getElementById('name').value;
+      var age = document.getElementById('age').value;
+      var adminNumber = document.getElementById('admno').value;
+  
+      // Store data in Firebase
+      database.ref('PatientRecord').push({
+        name: name,
+        age: age,
+        adminNumber: admno
+      });
+  
+      // Optionally, you can clear the form after submission
+      document.getElementById('userForm').reset();
+    });
+</script>
+  
+</html>
