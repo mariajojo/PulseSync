@@ -121,8 +121,8 @@
         var patients = [];
         // const res = snapshot.val();
 
-        snapshot.forEach(childSnapshot =>{
-            patients.push(childSnapshot.val());
+        snapshot.forEach(childSnapshot => {
+            patients.push({admno: childSnapshot.key ,...childSnapshot.val()});
         });
 
         AddAllItemsToTable(patients);
